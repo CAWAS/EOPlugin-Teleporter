@@ -1,0 +1,18 @@
+version: 1.0.0.{build}
+
+branches:
+    only:
+        - master
+
+build:
+    project: Teleporter\Teleporter.sln
+
+before_build:
+    - git.exe submodule update --init --recursive
+    - nuget restore Teleporter\Teleporter.sln
+    - nuget restore ElectronicObserverExtended\ElectronicObserver.sln
+    - mkdir output
+
+artifacts:
+    - path: output
+      name: Teleporter-$(APPVEYOR_BUILD_VERSION)
