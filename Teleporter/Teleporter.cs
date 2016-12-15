@@ -20,6 +20,11 @@ namespace Teleporter
 			return true;
 		}
 
+		public override string Version
+		{
+			get { return "<BUILD_VERSION>"; }
+		}
+
 		private Regex _cookieRegionRegex = new Regex(@"ckcy=\d+", RegexOptions.Compiled);
 		private Regex _cookieLanguageRegex = new Regex(@"cklg=[^;]+", RegexOptions.Compiled);
 

@@ -4,6 +4,13 @@ branches:
     only:
         - master
 
+assembly_info:
+    patch: true
+    file: AssemblyInfo.*
+    assembly_version: "1.0.0.{build}"
+    assembly_file_version: "{version}"
+    assembly_informational_version: "{version}"
+
 build:
     project: Teleporter\Teleporter.sln
 
@@ -12,6 +19,7 @@ before_build:
     - nuget restore Teleporter\Teleporter.sln
     - nuget restore ElectronicObserverExtended\ElectronicObserver.sln
     - mkdir output
+    - ps: (Get-Content Teleporter\Teleporter.cs -Encoding UTF8).replace("<BUILD_VERSION>", "$env:APPVEYOR_BUILD_VERSION") | Set-Content Teleporter\Teleporter.cs -Encoding UTF8
 
 artifacts:
     - path: output
